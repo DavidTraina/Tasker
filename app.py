@@ -27,14 +27,14 @@ def add():
     return render_template('index.html', tasks=db.items())
 
 
-@app.route('/delete/<task_id>')
+@app.route('/delete/<uuid:task_id>')
 def delete(task_id):
-    return render_template('index.html', tasks=db.items()) if db.pop(uuid.UUID(task_id), None) is not None else 'OOoooOOooOooooOOOOOOoooOOOps'
+    return redirect('/') if db.pop(task_id, None) is not None else 'OOoooOOooOooooOOOOOOoooOOOps'
 
 
-@app.route('/edit/<task_id>', methods=['POST', 'GET'])
+@app.route('/edit/<uuid:task_id>', methods=['POST', 'GET'])
 def edit(task_id):
-    task_to_edit = db.get(uuid.UUID(task_id), None)
+    task_to_edit = db.get(task_id, None)
     if task_to_edit is None:
         return 'OOoooOOooOooooOOOOOOoooOOOps'
     if request.method == 'POST':
