@@ -1,21 +1,19 @@
 # Tasker
 
-Tasker is a to-do list web app made with Flask and Python.
+Tasker is a to-do list web app made with Flask, Python and Docker.
 
 ## Installation
-Install [Python](https://www.python.org/downloads/) and then use the package manager [pip](https://pip.pypa.io/en/stable/) to install [Flask](https://flask.palletsprojects.com/en/1.1.x/).
-
+With [Docker](https://www.docker.com/products/docker-desktop) installed, clone this repo and build the image:
 ```bash
-pip install flask
+docker build -t tasker .
 ```
-Finally, clone this repo.
 
 ## Usage
 
-Run Tasker by navigating to the root project directory and running
+At the root directory, spin up a container from the image you built
 ```bash
-python app.py
+docker run -dp 5000:5000 tasker-image
 ```
-and opening http://127.0.0.1:5000/ in a web browser.
+and open http://127.0.0.1:5000/ in a web browser.
 
 Now add, edit and delete tasks at will!
