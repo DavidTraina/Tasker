@@ -10,3 +10,4 @@ Makefile
 docker-compose.yml
 docs
 # Dockerfile
+# todo best practice for what should/shouldn't be in here

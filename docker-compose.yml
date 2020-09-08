@@ -16,10 +16,13 @@ services:
       - 5000:5000 # allow host to communicate with container
     volumes: # bind mount to allow live update of files. remove for production # todo not working for unknown reasons
       - .:\tasker-app
-    env_file: # database credentials used to connect every time
+    env_file: # database credentials used to connect every time we run tasker.py
       - database.env
     restart: always # can fail to connect to db because the db is still starting up so we keep restarting. todo find better way
     depends_on:
       - db
 volumes:
   postgres_db_data:
+# Issue: Say the app is running and you have localhost:5000 open in Chrome. If you shut it down, change a file and then rebuild and run the app,
+# the changes will not take effect when you refresh the page. However, the changes will take effect if you open the app in a different browser (e.g. Edge).
+# Indicates some type of caching by Chrome. How to prevent this?

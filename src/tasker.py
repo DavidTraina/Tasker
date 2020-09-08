@@ -16,6 +16,7 @@ def get_env_var(var_name):
             "environment variable {} should be set but isn't".format(var_name)
         )
 
+
 POSTGRES_URL = get_env_var("POSTGRES_URL")
 POSTGRES_USER = get_env_var("POSTGRES_USER")
 POSTGRES_PASSWORD = get_env_var("POSTGRES_PASSWORD")
