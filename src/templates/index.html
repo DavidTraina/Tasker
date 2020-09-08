@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Tasker</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Tasker</h1>
+    {% if tasks|length == 0 %}
+    <h4 style="text-align: center">You're all done, Woohoo!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.content }}</td>
+            <td>{{ task.date_created.strftime("%Y-%m-%d %H:%M") }}</td>
+            <td>
+                <a href="/delete/{{ task.id }}">Delete</a>
+                <br>
+                <a href="/edit/{{ task.id }}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task">
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}

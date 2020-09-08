@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - postgres_db_data:/var/lib/postgresql/data/ # todo see if i can change this path or it needs to be this
+    ports:
+      - 5431:5432 # todo I saw this somewhere not sure if it's necessary
+    env_file: # needed to initialize db if the volume postgres_db_data does not exist on host. This happens first time running a container from the image or if the volume is deleted manually.
+      - database.env
+    restart: always # database shouldn't be crashing, but just in case
+  tasker:
+    build: . # run dockerfile
+    ports:
+      - 5000:5000 # allow host to communicate with container
+    volumes: # bind mount to allow live update of files. remove for production # todo not working for unknown reasons
+      - .:\tasker-app
+    env_file: # database credentials used to connect every time
+      - database.env
+    restart: always # can fail to connect to db because the db is still starting up so we keep restarting. todo find better way
+    depends_on:
+      - db
+volumes:
+  postgres_db_data:

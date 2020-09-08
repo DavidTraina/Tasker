@@ -6,7 +6,7 @@
 FROM python:3-alpine
 
 # This directory is created in the container. all relative paths are now from this absolute path
-WORKDIR /Tasker-app
+WORKDIR /tasker-app
 
 # Support dependency caching by copying dependencies and installing them before copying everything else.
 # This way, if some file changes, but the dependencies (i.e. requirements.txt) don't, 
@@ -14,7 +14,12 @@ WORKDIR /Tasker-app
 # We are sperating these layers. if we copied everything here and anything changed, the build cache 
 # or this whole layer would be invalidated.
 COPY requirements.txt ./
-RUN pip install -r requirements.txt
+# todo taken from stackoverflow to deal with psycopg2 stuff on alpine. not a clue what's going on here
+RUN \ 
+    apk add --no-cache postgresql-libs && \
+    apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
+    python3 -m pip install -r requirements.txt --no-cache-dir && \
+    apk --purge del .build-deps
 
 # unsure if this is necessary
 EXPOSE 5000
@@ -25,6 +30,6 @@ COPY . .
 
 # container executes this command by default when we launch the built image.
 # run tasker with python tasker.py
-CMD ["python", "tasker.py"]
+CMD ["python", "./src/tasker.py"]
 
 
