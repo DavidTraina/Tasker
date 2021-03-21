@@ -1,6 +1,6 @@
 # Tasker
 
-Tasker is a to-do list web app made with Flask, Python and Docker.
+Tasker is a to-do list web app made with Flask, Python and Docker Compose.
 
 
 ## Usage
@@ -10,4 +10,4 @@ At the root directory, build the images and run the containers in the background
 ```bash
 docker-compose up -d
 ```
-Now open http://localhost:5000/ in a web browser to create, edit and delete tasks at will!
+Tasker will now be running at [http://localhost:5000/](http://localhost:5000/)
