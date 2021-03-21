@@ -1,6 +1,7 @@
 # Tasker
 
-Tasker is a to-do list web app made with Flask, Python and Docker Compose.
+Tasker is a very simple to-do list web app made with Docker Compose, Flask, Jinja, Python, and PostgreSQL.
+Tasker was created to teach myself the basics of Docker and Docker Compose.
 
 
 ## Usage
